@@ -1,9 +1,10 @@
 import React from 'react';
-import { createMuiTheme, responsiveFontSizes } from '@material-ui/core/styles';
 import {
-  default as MuiThemeProvider,
-  ThemeProviderProps
-} from '@material-ui/styles/ThemeProvider';
+  createMuiTheme,
+  responsiveFontSizes,
+  ThemeProvider as MuiThemeProvider
+} from '@material-ui/core/styles';
+import {} from '@material-ui/core/styles';
 
 let theme = createMuiTheme({
   typography: {
@@ -12,6 +13,7 @@ let theme = createMuiTheme({
 });
 theme = responsiveFontSizes(theme);
 
+type MuiThemeProviderProps = React.ComponentProps<typeof MuiThemeProvider>;
 export const ThemeProvider: React.FC<
-  Omit<ThemeProviderProps, 'theme'>
+  Omit<MuiThemeProviderProps, 'theme'>
 > = props => <MuiThemeProvider theme={theme} {...props}></MuiThemeProvider>;
