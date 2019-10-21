@@ -13,10 +13,10 @@ let theme = createMuiTheme({
   palette: {
     primary: {
       main: '#0945eb',
-      light: '#dae3fc'
+      light: '#dae3fc',
+      dark: '#073ac7'
     },
-    contrastThreshold: 3,
-    tonalOffset: 0.4
+    contrastThreshold: 3
   }
 });
 theme = responsiveFontSizes(theme);
