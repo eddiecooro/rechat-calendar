@@ -9,6 +9,14 @@ import {} from '@material-ui/core/styles';
 let theme = createMuiTheme({
   typography: {
     fontFamily: 'Barlow, Georgia, Times New Roman, Times, serif'
+  },
+  palette: {
+    primary: {
+      main: '#0945eb',
+      light: '#dae3fc'
+    },
+    contrastThreshold: 3,
+    tonalOffset: 0.4
   }
 });
 theme = responsiveFontSizes(theme);
