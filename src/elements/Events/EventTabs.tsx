@@ -15,10 +15,16 @@ import { useToggle } from 'hooks';
 const useStyle = makeStyles(theme =>
   createStyles({
     container: {
-      padding: theme.spacing(1, 1, 0, 3)
+      padding: theme.spacing(1, 1, 0, 3),
+      overflow: 'scroll'
     },
     drawer: {
-      width: '35vw'
+      [theme.breakpoints.up('xs')]: {
+        width: '80vw'
+      },
+      [theme.breakpoints.up('sm')]: {
+        width: '35vw'
+      }
     }
   })
 );
