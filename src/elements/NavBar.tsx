@@ -1,7 +1,7 @@
 import React from 'react';
-import { Typography, Grid, Box, Button, IconButton } from '@material-ui/core';
+import { Grid, IconButton } from '@material-ui/core';
 import { makeStyles, createStyles } from '@material-ui/core/styles';
-import { Link, NavLink } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 import {
   Today as CalenderIcon,
   PermContactCalendar as PermContactCalendarIcon,

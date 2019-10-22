@@ -16,7 +16,7 @@ const useStyle = makeStyles(theme =>
   createStyles({
     container: {
       padding: theme.spacing(1, 1, 0, 3),
-      overflow: 'scroll'
+      overflow: 'auto'
     },
     drawer: {
       [theme.breakpoints.up('xs')]: {

@@ -2,7 +2,7 @@ import React from 'react';
 import Calender from 'elements/Calender';
 import Events from 'elements/Events/Events';
 import { RouteConfigComponentProps } from 'react-router-config';
-import { Box, Grid } from '@material-ui/core';
+import { Grid } from '@material-ui/core';
 import { makeStyles, createStyles } from '@material-ui/core/styles';
 
 const useStyles = makeStyles(theme =>
