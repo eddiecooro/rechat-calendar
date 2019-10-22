@@ -12,7 +12,7 @@ import {
   EventAvailable,
   MailOutline
 } from '@material-ui/icons';
-import { useLocation } from 'react-router';
+import useSyncWithHash from 'hooks/useSyncWithHash';
 
 interface TabPanelProps extends TypographyProps {
   index: number;
@@ -47,18 +47,29 @@ const events: Event[] = [
 ];
 
 const Events: React.FC = () => {
-  const [currentFilterIndex, setCurrentFilter] = React.useState(0);
+  const [filterIndex, setFilterIndex] = useSyncWithHash(
+    {
+      [events[0].label]: 0,
+      [events[1].label]: 1,
+      [events[2].label]: 2,
+      [events[3].label]: 3,
+      [events[4].label]: 4,
+      [events[5].label]: 5
+    },
+    0
+  );
+
   const classes = useStyle();
 
-  const handleChangeFilter = (
+  const handleChangeFilterIndex = (newIndex: number) => {
+    setFilterIndex(newIndex);
+  };
+
+  const handleChangeFilterEvent = (
     event: React.ChangeEvent<{}>,
     newFilterIndex: number
   ) => {
-    setCurrentFilter(newFilterIndex);
-  };
-
-  const handleChangeIndex = (newIndex: number) => {
-    setCurrentFilter(newIndex);
+    handleChangeFilterIndex(newFilterIndex);
   };
 
   return (
@@ -66,16 +77,16 @@ const Events: React.FC = () => {
       <Grid item className={classes.tabsGrid}>
         <EventTabs
           events={events}
-          currentFilterIndex={currentFilterIndex}
-          onFilterChange={handleChangeFilter}></EventTabs>
+          currentFilterIndex={filterIndex}
+          onFilterChange={handleChangeFilterEvent}></EventTabs>
       </Grid>
       <Grid item xs>
         <SwipeableViews
           axis="x"
-          index={currentFilterIndex}
-          onChangeIndex={handleChangeIndex}>
+          index={filterIndex}
+          onChangeIndex={handleChangeFilterIndex}>
           {events.map((event, i) => (
-            <TabPanel index={i} key={i} value={currentFilterIndex}>
+            <TabPanel index={i} key={i} value={filterIndex}>
               {event.label}
             </TabPanel>
           ))}
