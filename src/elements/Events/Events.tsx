@@ -1,6 +1,5 @@
 import React from 'react';
-import { Typography, Grid, Box, ClickAwayListener } from '@material-ui/core';
-
+import { Grid } from '@material-ui/core';
 import { EventTabs } from './EventTabs';
 
 const Events: React.FC = () => {

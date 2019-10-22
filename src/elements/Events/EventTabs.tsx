@@ -10,6 +10,7 @@ import {
   CalendarTodayOutlined
 } from '@material-ui/icons';
 import EventTab from './EventTab';
+import { useToggle } from 'hooks';
 
 const useStyle = makeStyles(theme =>
   createStyles({
@@ -40,12 +41,9 @@ export const EventTabs: React.FC<EventTabsProps> = ({
   currentFilter,
   onFilterChange
 }) => {
-  const [drawerIsOpen, setDrawerIsOpen] = React.useState(false);
+  const [drawerIsOpen, toggleDrawer] = useToggle(false);
   const classes = useStyle();
   const addEventClasses = useAddEventButtonClasses();
-  const toggleDrawer = () => {
-    setDrawerIsOpen(s => !s);
-  };
   return (
     <Paper square className={classes.container}>
       <Grid container alignItems="center">
