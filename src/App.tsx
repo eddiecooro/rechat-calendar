@@ -1,4 +1,5 @@
 import React from 'react';
+import { hot } from 'react-hot-loader/root';
 import pages from './pages';
 import { BrowserRouter as Router } from 'react-router-dom';
 import { ThemeProvider } from 'theme';
@@ -13,4 +14,4 @@ const App: React.FC = () => {
   );
 };
 
-export default App;
+export default process.env.NODE_ENV === 'development' ? hot(App) : App;
