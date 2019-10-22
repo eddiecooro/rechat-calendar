@@ -1,21 +1,15 @@
 import React, { ChangeEvent } from 'react';
+import { Event } from './types';
 import { Paper, Grid, Tabs, Button, Drawer } from '@material-ui/core';
 import { makeStyles, createStyles } from '@material-ui/core/styles';
-import {
-  AccessTime,
-  Phone,
-  Redeem,
-  EventAvailable,
-  MailOutline,
-  CalendarTodayOutlined
-} from '@material-ui/icons';
+import { CalendarTodayOutlined } from '@material-ui/icons';
 import EventTab from './EventTab';
 import { useToggle } from 'hooks';
 
 const useStyle = makeStyles(theme =>
   createStyles({
     container: {
-      padding: theme.spacing(1, 1, 0, 3),
+      padding: theme.spacing(1, 6, 0, 3),
       overflow: 'auto'
     },
     drawer: {
@@ -39,13 +33,16 @@ const useAddEventButtonClasses = makeStyles({
   }
 });
 
-type EventTabsProps = {
-  currentFilter: number;
+export type EventTabsProps = {
+  events: Event[];
+  currentFilterIndex: number;
   onFilterChange: (e: ChangeEvent<{}>, value: number) => void;
 };
+
 export const EventTabs: React.FC<EventTabsProps> = ({
-  currentFilter,
-  onFilterChange
+  currentFilterIndex,
+  onFilterChange,
+  events
 }) => {
   const [drawerIsOpen, toggleDrawer] = useToggle(false);
   const classes = useStyle();
@@ -55,18 +52,18 @@ export const EventTabs: React.FC<EventTabsProps> = ({
       <Grid container alignItems="center">
         <Grid item xs={10}>
           <Tabs
-            value={currentFilter}
+            value={currentFilterIndex}
             onChange={onFilterChange}
             variant="scrollable"
             indicatorColor="primary"
             scrollButtons="on"
             textColor="primary">
-            <EventTab label="All Events"></EventTab>
-            <EventTab icon={AccessTime} label="Touches"></EventTab>
-            <EventTab icon={Phone} label="Calls"></EventTab>
-            <EventTab icon={Redeem} label="Celebrations"></EventTab>
-            <EventTab icon={EventAvailable} label="Critical Dates"></EventTab>
-            <EventTab icon={MailOutline} label="Scheduled Emails"></EventTab>
+            {events.map((event, i) => (
+              <EventTab
+                key={i}
+                label={event.label}
+                icon={event.icon}></EventTab>
+            ))}
           </Tabs>
         </Grid>
 
