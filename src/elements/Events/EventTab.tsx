@@ -27,7 +27,7 @@ const useTabClasses = makeStyles(theme =>
 
 const EventTab: React.FC<
   Omit<TabProps, 'classes' | 'icon'> & {
-    icon?: React.FunctionComponent<SvgIconProps>;
+    icon?: React.ComponentType<SvgIconProps>;
     iconProps?: SvgIconProps;
   }
 > = props => {

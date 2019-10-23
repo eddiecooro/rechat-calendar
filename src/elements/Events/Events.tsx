@@ -1,10 +1,8 @@
 import React from 'react';
-import SwipeableViews from 'react-swipeable-views';
-import { Event } from './types';
-import { Grid, Box, Typography } from '@material-ui/core';
+import { EventFilterTab } from './types';
+import { Grid } from '@material-ui/core';
 import { EventTabs } from './EventTabs';
 import { makeStyles } from '@material-ui/styles';
-import { TypographyProps } from '@material-ui/core/Typography';
 import {
   AccessTime,
   Phone,
@@ -13,31 +11,18 @@ import {
   MailOutline
 } from '@material-ui/icons';
 import useSyncWithHash from 'hooks/useSyncWithHash';
-
-interface TabPanelProps extends TypographyProps {
-  index: number;
-  value: number;
-}
-const TabPanel: React.FC<TabPanelProps> = ({
-  value,
-  index,
-  children,
-  ...rest
-}) => {
-  return (
-    <Box hidden={Math.abs(index - value) > 1} p={3}>
-      {children}
-    </Box>
-  );
-};
+import TabPanels from './TabPanels';
 
 const useStyle = makeStyles({
   tabsGrid: {
     maxWidth: '100%'
+  },
+  panelsGrid: {
+    minHeight: 0
   }
 });
 
-const events: Event[] = [
+export const filters: EventFilterTab[] = [
   { label: 'All Events', icon: undefined },
   { label: 'Touches', icon: AccessTime },
   { label: 'Calls', icon: Phone },
@@ -49,12 +34,12 @@ const events: Event[] = [
 const Events: React.FC = () => {
   const [filterIndex, setFilterIndex] = useSyncWithHash(
     {
-      [events[0].label]: 0,
-      [events[1].label]: 1,
-      [events[2].label]: 2,
-      [events[3].label]: 3,
-      [events[4].label]: 4,
-      [events[5].label]: 5
+      [filters[0].label]: 0,
+      [filters[1].label]: 1,
+      [filters[2].label]: 2,
+      [filters[3].label]: 3,
+      [filters[4].label]: 4,
+      [filters[5].label]: 5
     },
     0
   );
@@ -76,21 +61,16 @@ const Events: React.FC = () => {
     <Grid container item xs direction="column">
       <Grid item className={classes.tabsGrid}>
         <EventTabs
-          events={events}
+          filters={filters}
           currentFilterIndex={filterIndex}
           onFilterChange={handleChangeFilterEvent}></EventTabs>
       </Grid>
-      <Grid item xs>
-        <SwipeableViews
-          axis="x"
-          index={filterIndex}
-          onChangeIndex={handleChangeFilterIndex}>
-          {events.map((event, i) => (
-            <TabPanel index={i} key={i} value={filterIndex}>
-              {event.label}
-            </TabPanel>
-          ))}
-        </SwipeableViews>
+      <Grid item xs className={classes.panelsGrid}>
+        <TabPanels
+          filters={filters}
+          filterIndex={filterIndex}
+          handleChangeFilterIndex={handleChangeFilterIndex}
+        />
       </Grid>
     </Grid>
   );

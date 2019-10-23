@@ -1,5 +1,5 @@
 import React, { ChangeEvent } from 'react';
-import { Event } from './types';
+import { EventFilterTab } from './types';
 import { Paper, Grid, Tabs, Button, Drawer } from '@material-ui/core';
 import { makeStyles, createStyles } from '@material-ui/core/styles';
 import { CalendarTodayOutlined } from '@material-ui/icons';
@@ -34,7 +34,7 @@ const useAddEventButtonClasses = makeStyles({
 });
 
 export type EventTabsProps = {
-  events: Event[];
+  filters: EventFilterTab[];
   currentFilterIndex: number;
   onFilterChange: (e: ChangeEvent<{}>, value: number) => void;
 };
@@ -42,7 +42,7 @@ export type EventTabsProps = {
 export const EventTabs: React.FC<EventTabsProps> = ({
   currentFilterIndex,
   onFilterChange,
-  events
+  filters: events
 }) => {
   const [drawerIsOpen, toggleDrawer] = useToggle(false);
   const classes = useStyle();
