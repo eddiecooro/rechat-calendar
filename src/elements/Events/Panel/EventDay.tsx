@@ -1,58 +1,44 @@
 import React from 'react';
-import { List } from '@material-ui/core';
 import EventDayHeader from './EventDayHeader';
 import { makeStyles, createStyles } from '@material-ui/core/styles';
 import EventItem from './EventItem';
-
-export const useStyle = makeStyles(theme =>
-  createStyles({
-    listItemTime: {
-      flexGrow: 0,
-      paddingRight: theme.spacing(7),
-      color: '#7f7f7f',
-      alignSelf: 'flex-start'
-    },
-    listItemPrimaryText: {
-      fontSize: '1rem',
-      overflow: 'hidden',
-      textOverflow: 'ellipsis'
-    }
-  })
-);
-
-const emptyEvent = {
-  sub: 'No event set for this month!'
-};
-
-const loadingEvent = {
-  sub: 'Loading Events...'
-};
+import { EventExt } from 'api/apiTypes';
+import { List } from '@material-ui/core';
 
 export type EventDayProps = {
   active?: boolean;
-  dayEvents?: any[];
+  dayEvents?: EventExt[];
+  day: Date;
+  onMount: () => void;
 };
 
-const EventDay: React.FC<EventDayProps> = ({ active, dayEvents }) => {
+const EventDay: React.FC<EventDayProps> = ({
+  active,
+  dayEvents,
+  onMount,
+  day
+}) => {
   return (
-    <List
-      subheader={
-        <EventDayHeader active={active}>
-          Today - Tuesday, October 22
-        </EventDayHeader>
-      }>
+    <>
+      <EventDayHeader onMount={onMount} active={active}>
+        {day.toLocaleDateString('en-US', {
+          weekday: 'long',
+          month: 'long',
+          day: 'numeric'
+        })}
+      </EventDayHeader>
       {dayEvents ? (
         dayEvents.length ? (
           dayEvents.map((event, i) => (
-            <EventItem event={event} key={i}></EventItem>
+            <EventItem event={event} desc="All Day" key={i}></EventItem>
           ))
         ) : (
-          <EventItem event={emptyEvent} />
+          <EventItem desc="No event set for this month!" />
         )
       ) : (
-        <EventItem event={loadingEvent} />
+        <EventItem desc="Loading Events..." />
       )}
-    </List>
+    </>
   );
 };
 

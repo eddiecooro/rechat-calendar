@@ -6,11 +6,15 @@ import ListSubheader, {
 
 type EventDayHeaderProps = {
   active?: boolean;
+  onMount: () => void;
 };
 const EventDayHeader = styled(
-  ({ active, ...rest }: ListSubheaderProps & EventDayHeaderProps) => (
-    <ListSubheader {...rest} />
-  )
+  ({ active, onMount, ...rest }: ListSubheaderProps & EventDayHeaderProps) => {
+    React.useEffect(() => {
+      onMount();
+    }, []);
+    return <ListSubheader {...rest} />;
+  }
 )(arg => {
   const { theme } = arg;
   const { active } = (arg as unknown) as EventDayHeaderProps;

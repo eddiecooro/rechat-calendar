@@ -31,7 +31,7 @@ const TabPanels: React.FC<TabPanelsType> = ({
       onChangeIndex={handleChangeFilterIndex}>
       {filters.map((filter, i) => (
         <TabPanel key={i} index={i} value={filterIndex}>
-          <EventsList key={i} filter={filter} />
+          {i === 0 && <EventsList key={i} filter={filter} />}
         </TabPanel>
       ))}
     </SwipeableViews>
